@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.imoc.pay.PayApplicationTests;
-import com.imoc.pay.service.impl.PayService;
+import com.imoc.pay.service.impl.PayServiceImpl;
 import com.lly835.bestpay.enums.BestPayTypeEnum;
 
 public class PayServiceTest extends PayApplicationTests {
 
 	@Autowired
-	private PayService payService;
+	private PayServiceImpl payService;
 	
 	@Test
 	public void create() {

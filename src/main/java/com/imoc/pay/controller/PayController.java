@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.imoc.pay.pojo.PayInfo;
-import com.imoc.pay.service.impl.PayService;
+import com.imoc.pay.service.impl.PayServiceImpl;
 import com.lly835.bestpay.config.AliPayConfig;
 import com.lly835.bestpay.config.WxPayConfig;
 import com.lly835.bestpay.enums.BestPayTypeEnum;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PayController {
 	
 	@Autowired
-	private PayService payService;
+	private PayServiceImpl payServiceImpl;
 	
 	@Autowired
 	private WxPayConfig wxPayConfig;
@@ -43,7 +43,7 @@ public class PayController {
 			@RequestParam("amount") BigDecimal amount,
 			@RequestParam("payType") BestPayTypeEnum payType
 			) {
-		PayResponse response = payService.create(orderId, amount, payType);
+		PayResponse response = payServiceImpl.create(orderId, amount, payType);
 		
 		Map<String, String> map = new HashMap<>();
 		map.put("orderId", orderId);
@@ -66,13 +66,13 @@ public class PayController {
 	@ResponseBody
 	public void asyncNotify(@RequestBody String notifyData) {
 		log.info("notifyData={}", notifyData);
-		payService.asyncNotify(notifyData);
+		payServiceImpl.asyncNotify(notifyData);
 	}
 	
 	@GetMapping("/queryByOrderId")
 	@ResponseBody
 	public PayInfo queryByOrderId(@RequestParam String OrderId) {
-		return payService.queryByOrderId(OrderId);
+		return payServiceImpl.queryByOrderId(OrderId);
 	}
 
 }
